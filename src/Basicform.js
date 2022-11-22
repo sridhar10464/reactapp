@@ -46,12 +46,12 @@ return (
     /> 
     {touched.email && errors.email ? errors.email: null}
     <input
-      name="password"
+      name = "password"
       value = {values.password}
       onChange = {handleChange}
-      oneBlur={handleBlur}
-      type = "text"
-      placeholder="password"
+      oneBlur = {handleBlur}
+      type = "password"
+      placeholder = "password"
     /> 
     {touched.password && errors.password ? errors.password: null}
     <button type="submit">Submit</button>

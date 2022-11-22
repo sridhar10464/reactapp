@@ -1,23 +1,26 @@
 
 import "./App.css";
+// import "bootstrap"
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 // import Stack from "@mui/material/Stack";
 // import CardMedia from "@mui/material/CardMedia";
 // import Typography from "@mui/material/Typography";
-import { Routes, Route, Link, Navigate, } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate, } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import Typography from "@mui/material/Typography";
 // import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Paper from "@mui/material/Paper";
+import Auth from "./Auth"
 import { MovieDetails } from "./MovieDetails";
 import { NotFound } from "./NotFound";
 import { Home } from "./Home";
@@ -32,6 +35,7 @@ import { API } from "./global";
 
 function App() {
   // const [movies, setMovies] = useState([]);
+
   const navigate = useNavigate();
   const [mode, setMode] = useState("dark")
 
@@ -54,6 +58,9 @@ function App() {
     <div className="App">
       <AppBar position="static">
         <Toolbar>
+          <Button color="inherit" onClick ={() => navigate("/auth")}>
+            Login
+          </Button>
           <Button color="inherit" onClick ={() => navigate("/")}>
             Home
           </Button>
@@ -68,7 +75,7 @@ function App() {
           </Button>
           <Button 
            startIcon={
-            mode === "dark" ? <Brightness7Icon/> : <Brightness4Icon/>
+             mode === "dark" ? <Brightness7Icon/> : <Brightness4Icon/>
            }
            sx = {{marginLeft: "auto"}}
             color="inherit"
@@ -78,22 +85,26 @@ function App() {
         </Toolbar>
       </AppBar>
       
-     <section className="route-container"> 
+     <section className="route-container">
+      
       <Routes>
+        <Route path="/auth" element={<Auth />} />   
         <Route path="/" element={<Home />} />
         <Route path="/films" element={<Navigate replace to = "/movies" />} />
         <Route path="/movies" element={<MovieList />} />
-        <Route path="/movies/add" element={<AddMovie />} />
+        <Route path="/movies/add" element={ <AddMovie />} />
         <Route path="/movies/edit/:id" element={<EditMovie />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/color-game" element={<AddColor />} />
         <Route path="/basic-form" element={<BasicForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+     
      </section>
     </div>
     </Paper>
     </ThemeProvider>
+  
   );
 }
 
